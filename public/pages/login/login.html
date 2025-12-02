@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Notivio - Sign In</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+            },
+            colors: {
+              gray: {
+                850: "#1f2937",
+                900: "#111827",
+                950: "#030712",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+
+    <!-- Firebase Config -->
+    <script src="/js/config/firebase-config.js"></script>
+  </head>
+  <body
+    class="bg-gray-950 text-gray-100 font-sans h-screen flex justify-center items-center antialiased selection:bg-white selection:text-black"
+  >
+    <div class="w-full max-w-md p-6">
+      <!-- Login View -->
+      <div
+        id="loginView"
+        class="bg-gray-900 border border-gray-800 rounded-xl p-8 shadow-2xl text-center transition-all duration-300"
+      >
+        <a
+          href="../../index.html"
+          class="text-2xl font-semibold mb-8 inline-block text-white tracking-tight hover:opacity-80 transition-opacity"
+          >Notivio</a
+        >
+        <h1 class="text-xl font-medium mb-2 text-white">Log in to Notivio</h1>
+        <p class="text-gray-400 text-sm mb-8">
+          Enter your details to access your account.
+        </p>
+
+        <form id="loginForm" class="text-left space-y-4">
+          <div>
+            <label
+              for="loginEmail"
+              class="block text-xs text-gray-400 mb-2 font-medium"
+              >Email address</label
+            >
+            <input
+              type="email"
+              id="loginEmail"
+              placeholder="name@company.com"
+              required
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-600"
+            />
+          </div>
+          <div>
+            <label
+              for="loginPassword"
+              class="block text-xs text-gray-400 mb-2 font-medium"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="loginPassword"
+              placeholder="••••••••"
+              required
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-600"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-white text-black font-medium rounded-lg py-2.5 text-sm hover:bg-gray-200 transition-colors mt-2"
+          >
+            Log In
+          </button>
+        </form>
+
+        <div class="flex items-center my-6 text-gray-700">
+          <div class="flex-1 border-b border-gray-800"></div>
+          <span class="px-3 text-xs text-gray-500 font-medium">OR</span>
+          <div class="flex-1 border-b border-gray-800"></div>
+        </div>
+
+        <button
+          id="googleLoginBtn"
+          class="w-full bg-transparent border border-gray-700 text-white rounded-lg py-2.5 text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
+        >
+          <i class="fab fa-google"></i>
+          Continue with Google
+        </button>
+
+        <p class="mt-6 text-xs text-gray-500">
+          New to Notivio?
+          <a
+            id="showRegister"
+            class="text-white font-medium cursor-pointer hover:underline"
+            >Create an account</a
+          >
+        </p>
+      </div>
+
+      <!-- Register View -->
+      <div
+        id="registerView"
+        class="bg-gray-900 border border-gray-800 rounded-xl p-8 shadow-2xl text-center hidden transition-all duration-300"
+      >
+        <a
+          href="../../index.html"
+          class="text-2xl font-semibold mb-8 inline-block text-white tracking-tight hover:opacity-80 transition-opacity"
+          >Notivio</a
+        >
+        <h1 class="text-xl font-medium mb-2 text-white">Create your account</h1>
+        <p class="text-gray-400 text-sm mb-8">
+          Start automating your interviews today.
+        </p>
+
+        <form id="registerForm" class="text-left space-y-4">
+          <div>
+            <label
+              for="regName"
+              class="block text-xs text-gray-400 mb-2 font-medium"
+              >Full Name</label
+            >
+            <input
+              type="text"
+              id="regName"
+              placeholder="John Doe"
+              required
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-600"
+            />
+          </div>
+          <div>
+            <label
+              for="regEmail"
+              class="block text-xs text-gray-400 mb-2 font-medium"
+              >Email address</label
+            >
+            <input
+              type="email"
+              id="regEmail"
+              placeholder="name@company.com"
+              required
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-600"
+            />
+          </div>
+          <div>
+            <label
+              for="regPhone"
+              class="block text-xs text-gray-400 mb-2 font-medium"
+              >Phone Number</label
+            >
+            <input
+              type="tel"
+              id="regPhone"
+              placeholder="+62 812 3456 7890"
+              required
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-600"
+            />
+          </div>
+          <div>
+            <label
+              for="regPassword"
+              class="block text-xs text-gray-400 mb-2 font-medium"
+              >Password</label
+            >
+            <input
+              type="password"
+              id="regPassword"
+              placeholder="••••••••"
+              required
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2.5 text-white text-sm focus:outline-none focus:border-gray-500 focus:ring-1 focus:ring-gray-500 transition-all placeholder-gray-600"
+            />
+          </div>
+          <button
+            type="submit"
+            class="w-full bg-white text-black font-medium rounded-lg py-2.5 text-sm hover:bg-gray-200 transition-colors mt-2"
+          >
+            Create Account
+          </button>
+        </form>
+
+        <div class="flex items-center my-6 text-gray-700">
+          <div class="flex-1 border-b border-gray-800"></div>
+          <span class="px-3 text-xs text-gray-500 font-medium">OR</span>
+          <div class="flex-1 border-b border-gray-800"></div>
+        </div>
+
+        <button
+          id="googleRegisterBtn"
+          class="w-full bg-transparent border border-gray-700 text-white rounded-lg py-2.5 text-sm font-medium flex items-center justify-center gap-2 hover:bg-white/5 transition-colors"
+        >
+          <i class="fab fa-google"></i>
+          Continue with Google
+        </button>
+
+        <p class="mt-6 text-xs text-gray-500">
+          Already have an account?
+          <a
+            id="showLogin"
+            class="text-white font-medium cursor-pointer hover:underline"
+            >Log in</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <script src="/js/auth.js"></script>
+  </body>
+</html>
