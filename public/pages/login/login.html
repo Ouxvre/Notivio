@@ -32,14 +32,6 @@
         },
       };
     </script>
-
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-
-    <!-- Firebase Config -->
-    <script src="/js/config/firebase-config.js"></script>
   </head>
   <body
     class="bg-gray-950 text-gray-100 font-sans h-screen flex justify-center items-center antialiased selection:bg-white selection:text-black"
@@ -226,6 +218,8 @@
       </div>
     </div>
 
-    <script src="/js/auth.js"></script>
+    <script type="module" src="/js/config/firebase-config.js"></script>
+    <script type="module" src="/js/auth.js"></script>
+    <script src="/js/login.js"></script>
   </body>
 </html>
