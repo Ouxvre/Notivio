@@ -72,7 +72,7 @@ function googleSignIn(e) {
     e.preventDefault();
     signInWithPopup(auth, provider)
         .then(() => {
-            window.location.href = 'pages/dashboard/dashboard.html';
+            window.location.href = '/pages/dashboard/dashboard.html';
         })
         .catch((err) => alert(err.message));
 }
